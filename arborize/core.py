@@ -2,6 +2,7 @@ __all__ = ["NeuronModel", "get_section_synapses", "get_section_receivers", "make
 
 import os, sys, errr
 from contextlib import contextmanager
+from .convert import arb_to_sections
 from .exceptions import *
 import numpy as np
 import functools
@@ -58,11 +59,11 @@ class NeuronModel:
             raise NotImplementedError(f"Can't instantiate abstract NeuronModel {self.__class__.__name__}")
         # Initialize variables
         self.position = np.array(position if position is not None else [0., 0., 0.])
-        self.sections = []
-        self._nrn_section_map = dict()
 
-        # Construct cell
-        self.get_morphology_builder(morphology)(self)
+        # Ask arbor to construct cell
+        morph, labels, decor = type(self).cable_cell_template(morphology)
+        self.sections = arb_to_sections(morph, labels, decor)
+        exit()
         # Do labelling of sections into special sections
         self._apply_labels()
 
