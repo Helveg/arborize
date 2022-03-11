@@ -534,6 +534,7 @@ def _cc_insert_mechs(decor, label, mechs):
             mech_name = "_".join(mech_name)
         mech = arbor.density(mech_name, mech_attrs or {})
         decor.paint(f'"{label}"', mech)
+        print("painted", mech, f'"{label}"')
         i += 1
 
 
