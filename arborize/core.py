@@ -532,7 +532,7 @@ def _cc_insert_mechs(decor, label, mechs):
     for mech_name, mech_attrs in mechs.items():
         if isinstance(mech_name, tuple):
             mech_name = "_".join(mech_name)
-        mech = arbor.mechanism(mech_name, mech_attrs or {})
+        mech = arbor.density(mech_name, mech_attrs or {})
         decor.paint(f'"{label}"', mech)
         i += 1
 
