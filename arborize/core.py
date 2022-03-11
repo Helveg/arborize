@@ -607,6 +607,7 @@ def _cc_insert_labels(label_dict, labels):
     # if "dendrites" not in label_dict and "dend" in label_dict:
     try:
         label_dict["dendrites"] = '(region "dend")'
+        label_dict["midpoint"] = '(root)'
     except (RuntimeError, KeyError):
         # KeyErrors thrown as RuntimeError, see
         # https://github.com/arbor-sim/arbor/issues/1550
