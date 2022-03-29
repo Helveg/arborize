@@ -5,14 +5,14 @@ from contextlib import contextmanager
 from .exceptions import *
 import numpy as np
 
-if not os.getenv('READTHEDOCS'):
-    from patch import p, transform
-    from patch.objects import Section
-    import glia as g
-    from .synapse import Synapse
-    import glia.exceptions
-    p.load_file('stdlib.hoc')
-    p.load_file('import3d.hoc')
+# if not os.getenv('READTHEDOCS'):
+#     from patch import p, transform
+#     from patch.objects import Section
+#     import glia as g
+#     from .synapse import Synapse
+#     import glia.exceptions
+#     p.load_file('stdlib.hoc')
+#     p.load_file('import3d.hoc')
 
 class Builder:
     """
