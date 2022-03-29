@@ -320,6 +320,46 @@ class NeuronModel:
     def boot(self):
         pass
 
+    @classmethod
+    def make_catalogue(cls):
+        """
+        Override to return the catalogue required to run this model
+        """
+        try:
+            import arbor
+        except ImportError:
+            raise ImportError("`arbor` unavailable, can't make arbor models.")
+        return arbor.default_catalogue()
+
+    @classmethod
+    @functools.cache
+    def _get_catalogue(cls):
+        return cls.make_catalogue()
+
+    @classmethod
+    def get_catalogue_prefix(cls):
+        """
+        Return the catalogue prefix for this model.
+        """
+        cat = cls._get_catalogue()
+        return f"arbz_{hash(' '.join(sorted(cat)))}_"
+
+    @classmethod
+    def get_catalogue(cls):
+        """
+        Return the catalogue for this model. It is prefixed by a hash which can
+        be obtained from :meth:`get_catalogue_prefix`.
+        """
+        try:
+            import arbor
+        except ImportError:
+            raise ImportError("`arbor` unavailable, can't make arbor models.")
+        base_cat = arbor.catalogue()
+        cat = cls._get_catalogue()
+        prefix = cls.get_catalogue_prefix()
+        base_cat.extend(cat, prefix)
+        return base_cat
+    
     def set_reference_id(self, id):
         '''
             Add an id that can be used as reference for outside software.
