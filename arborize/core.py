@@ -724,7 +724,7 @@ def make_builder(blueprint, path=None):
             else:
                 blueprint = os.path.join(path, blueprint)
         # Use Import3D as builder
-        builder, tags = _import3d_load(blueprint)
+        builder, tags = lambda model: None, None
         if tags is not None:
             def set_meta(model):
                 model.builder_meta = m = getattr(model, "builder_meta", dict())
