@@ -499,7 +499,7 @@ class NeuronModel:
     @classmethod
     def make_builder(cls, morphology, path=None):
         return make_builder(morphology, path=path or cls.morphology_directory)
-        
+
     @classmethod
     def cable_cell(cls, morphology=0, decor=None, labels=None):
         try:
@@ -519,6 +519,10 @@ class NeuronModel:
 
         if not isinstance(cls.morphologies[morphology], str):
             raise NotImplementedError("Can't use builders for cable cells, must import from file. Please export your morphology builder to an SWC or ASC file and update `cls.morphologies`.")
+        if labels is None:
+            labels = arbor.label_dict()
+        if decor is None:
+            decor = arbor.decor()
         path = os.path.join(cls.morphology_directory, cls.morphologies[morphology])
         morph, labels = _try_arb_morpho(path)
         _cc_insert_labels(labels, getattr(cls, "labels", {}))
@@ -539,7 +543,7 @@ class NeuronModel:
                 label,
                 definition
             )
-        return arbor.cable_cell(morph, labels, decor)
+        return morph, labels, decor
 
 
 def _try_mech_presence(mech, resolved):
