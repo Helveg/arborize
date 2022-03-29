@@ -4,6 +4,7 @@ import os, sys, errr
 from contextlib import contextmanager
 from .exceptions import *
 import numpy as np
+import functools
 
 # if not os.getenv('READTHEDOCS'):
 #     from patch import p, transform
@@ -359,7 +360,7 @@ class NeuronModel:
         prefix = cls.get_catalogue_prefix()
         base_cat.extend(cat, prefix)
         return base_cat
-    
+
     def set_reference_id(self, id):
         '''
             Add an id that can be used as reference for outside software.
