@@ -499,9 +499,19 @@ class NeuronModel:
     @classmethod
     def make_builder(cls, morphology, path=None):
         return make_builder(morphology, path=path or cls.morphology_directory)
+        
+    @classmethod
+    def cable_cell(cls, morphology=0, decor=None, labels=None):
+        try:
+            import arbor
+        except ImportError:
+            raise ImportError("`arbor` unavailable, can't make arbor models.")
+
+        morph, labels, decor = cls.cable_cell_template(morphology, decor, labels)
+        return arbor.cable_cell(morph, labels, decor)
 
     @classmethod
-    def cable_cell(cls, morphology=0, Vm=-40, K=305.15):
+    def cable_cell_template(cls, morphology=0, decor=None, labels=None):
         try:
             import arbor
         except ImportError:
@@ -513,8 +523,6 @@ class NeuronModel:
         morph, labels = _try_arb_morpho(path)
         _cc_insert_labels(labels, getattr(cls, "labels", {}))
         composites = _arb_resolve_composites(cls.section_types, labels)
-        decor = arbor.decor()
-        decor.set_property(Vm=Vm, tempK=K)
 
         #policy = arbor.cv_policy_max_extent(40.0)
         #for l in labels:
