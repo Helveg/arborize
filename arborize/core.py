@@ -18,21 +18,21 @@ try:
 except AttributeError:
     functools.cache = functools.lru_cache(None)
 
-from patch import p, transform
-from patch.objects import Section
+# from patch import p., transform
+# from patch.objects import Section
 import glia as g
-from .synapse import Synapse
+# from .synapse import Synapse
 import glia.exceptions
 
-p.load_file("stdlib.hoc")
-p.load_file("import3d.hoc")
+# p.load_file("stdlib.hoc")
+# p.load_file("import3d.hoc")
 
-# Overwrite initialization of Sections in this file.
-class Section(Section):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.labels = []
-        self._synapses = self.synapses = []
+# # Overwrite initialization of Sections in this file.
+# class Section(Section):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.labels = []
+#         self._synapses = self.synapses = []
 
 
 class Pipeline:
