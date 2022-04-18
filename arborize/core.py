@@ -397,8 +397,6 @@ class NeuronModel:
         if not hasattr(self.__class__, "synapse_types"):
             raise ModelClassError("Can't connect to a NeuronModel that does not specify any `synapse_types` on its class.")
         synapse_types = self.__class__.synapse_types
-        if not hasattr(section, "available_synapse_types") or not section.available_synapse_types:
-            raise ConnectionError("Can't connect to '{}' labelled section without available synapse types.".format(labels_name))
         section_synapses = list(synapse_types.keys())
 
         if synapse_type is None:
