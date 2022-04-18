@@ -30,7 +30,7 @@ class Synapse:
         if self.source is None:
             nc = p.NetCon(section(x)._ref_v, self._point_process, sec=section, **kwargs)
             w = -1 if "GABA" in self._point_process_name else 1
-            nc.weight = 0.00001 * w
+            nc.weight[0] = 0.00001 * w
             return nc
         else:
             setattr(self._point_process, f"_ref_{self.source}", section(x)._ref_v)

@@ -376,7 +376,7 @@ class NeuronModel:
         else:
             parallel_con = p.ParallelCon(gid, synapse._point_process)
             w = -1 if "GABA" in synapse._point_process_name else 1
-            parallel_con.weight = 0.00001 * w
+            parallel_con.weight[0] = 0.00001 * w
             receiver_dict["receiver"] = parallel_con
         section._receivers.append(receiver_dict)
         return receiver_dict
