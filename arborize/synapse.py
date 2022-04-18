@@ -10,8 +10,8 @@ class Synapse:
         self._point_process_name = point_process_name
         self.source = source
         with g.context(pkg=cell.__class__.glia_package):
-            self._point_process_glia_name = g.resolve("ExpSyn")
-            self._point_process = g.insert(section, "ExpSyn")
+            self._point_process_glia_name = "ExpSyn"
+            self._point_process = p.ExpSyn(section(0.5))
         section.__ref__(self)
         for key, value in attributes.items():
             setattr(self._point_process, key, value)
